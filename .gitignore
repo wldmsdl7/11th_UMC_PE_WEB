@@ -24,7 +24,3 @@ dist/
 
 # Optional: coverage folder (if using testing)
 coverage/
-
-# 실습 및 0주차 파일은 업로드X
-실습/
-week0/

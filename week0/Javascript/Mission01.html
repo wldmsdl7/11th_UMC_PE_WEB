@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todo List</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f0f4f8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 20px;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    input {
+        width: 100%;
+        max-width: 500px;
+        padding: 12px 15px;
+        font-size: 16px;
+        border-radius: 25px;
+        border: 1px solid #ccc;
+        outline: none;
+        transition: all 0.2s;
+    }
+
+    input:focus {
+        border-color: #4caf50;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+
+    section {
+        width: 100%;
+        max-width: 500px;
+        margin-top: 30px;
+    }
+
+    h2 {
+        margin-bottom: 15px;
+        color: #555;
+        border-bottom: 2px solid #4caf50;
+        padding-bottom: 5px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        background: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: all 0.2s;
+    }
+
+    li.completed span {
+        text-decoration: line-through;
+        color: #999;
+    }
+
+    li:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    button {
+        cursor: pointer;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.2s;
+    }
+
+    .complete-btn {
+        background-color: #4caf50;
+        color: white;
+    }
+
+    .complete-btn:hover {
+        background-color: #45a049;
+    }
+
+    .delete-btn {
+        background-color: #f44336;
+        color: white;
+    }
+
+    .delete-btn:hover {
+        background-color: #e53935;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Todo List</h1>
+    <input type="text" id="todo-input" placeholder="할 일을 입력하고 Enter">
+</header>
+
+<section>
+    <h2>해야 할 일</h2>
+    <ul id="todo-list"></ul>
+</section>
+
+<section>
+    <h2>해낸 일</h2>
+    <ul id="done-list"></ul>
+</section>
+
+<script>
+const input = document.getElementById('todo-input');
+const todoList = document.getElementById('todo-list');
+const doneList = document.getElementById('done-list');
+
+function createTodoItem(text) {
+    const li = document.createElement('li');
+
+    const span = document.createElement('span');
+    span.textContent = text;
+
+    const buttons = document.createElement('div');
+    buttons.className = 'buttons';
+
+    const completeBtn = document.createElement('button');
+    completeBtn.textContent = '완료';
+    completeBtn.className = 'complete-btn';
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = '삭제';
+    deleteBtn.className = 'delete-btn';
+
+    buttons.appendChild(completeBtn);
+    buttons.appendChild(deleteBtn);
+
+    li.appendChild(span);
+    li.appendChild(buttons);
+
+    completeBtn.addEventListener('click', () => {
+        li.classList.toggle('completed');
+        if (li.classList.contains('completed')) {
+            doneList.appendChild(li);
+        } else {
+            todoList.appendChild(li);
+        }
+    });
+
+    deleteBtn.addEventListener('click', () => {
+        li.remove();
+    });
+
+    return li;
+}
+
+input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const text = input.value.trim();
+        if (text) {
+            const todoItem = createTodoItem(text);
+            todoList.appendChild(todoItem);
+            input.value = '';
+        }
+    }
+});
+</script>
+
+</body>
+</html>
