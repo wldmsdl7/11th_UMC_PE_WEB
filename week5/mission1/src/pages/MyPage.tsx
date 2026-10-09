@@ -1,0 +1,70 @@
+import { useEffect, useState } from "react";
+import { getMyInfo } from "../api/auth";
+import type { User } from "../types/user";
+import noProfileImg from "../assets/image.png";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
+export const MyPage = () => {
+    //TODO: User type 이용한 ResponseMyInfoDTO 로 변경해보기 
+  const [data, setData] = useState<User | null>(null);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  }
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await getMyInfo();
+      console.log(response);
+
+      setData(response.data);
+    };
+
+    getData();
+  }, []);
+
+  if (!data) {
+    return (
+        <div 
+          className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-gray-900 to-black"
+        >
+          <p className="text-red-400 text-2xl font-semibold p-4">
+            데이터를 불러오던 중 오류가 발생했습니다.
+          </p>
+        </div>
+      )
+  }
+
+  return (
+    <div className="min-h-dvh bg-gradient-to-b from-gray-900 to-black flex flex-col items-center justify-start p-8 gap-7 text-white">
+      {/* 프로필 헤더 */}
+      <section className="flex flex-col items-center gap-4 mt-8">
+        <img
+          src={noProfileImg} 
+          alt="프로필 이미지"
+          className="w-32 h-32 rounded-full object-cover shadow-lg"
+        />
+        <h1 className="text-3xl font-bold">{data.name}</h1>
+        <p className="text-gray-300">{data.email}</p>
+      </section>
+
+      {/* 소개 */}
+      <section className="mt-4 w-full max-w-xl p-4 bg-gray-800 rounded-lg shadow-md">
+        <h2 className="text-xl font-semibold mb-2">소개</h2>
+        <p className="text-gray-200">{data.bio || "자기소개가 없습니다."}</p>
+      </section>
+       <button 
+        onClick={handleLogout}
+        className="px-6 py-3 bg-blue-600 rounded-lg hover:bg-blue-700 transition text-white "
+        >
+        로그아웃
+        </button>
+    </div>
+  );
+};
+
+export default MyPage;

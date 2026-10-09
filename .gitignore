@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Node.js package
+node_modules/
+
+# TypeScript
+dist/
+*.tsbuildinfo
+
+# Editor & OS
+.vscode/
+.idea/
+.DS_Store
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Optional: coverage folder (if using testing)
+coverage/
+
+# 실습 및 0주차 파일은 업로드X
+실습/
+week0/

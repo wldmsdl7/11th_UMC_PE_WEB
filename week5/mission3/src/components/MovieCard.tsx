@@ -1,0 +1,37 @@
+import { useState } from "react";
+import type { Movie } from "../types/movie";
+import { useNavigate } from "react-router-dom";
+
+interface MovieCardProps {
+    movie: Movie;
+    category: string;
+    size?: number;
+    className?: string;
+}
+
+export default function MovieCard( {movie, category, size, className} : MovieCardProps ) {
+    const [isHovered, setIsHovered] = useState(false);
+    const navigate = useNavigate();
+
+    return (
+        <div 
+            onClick={()=> navigate(`/movies/${category}/${movie.id}`)}
+            className={`relative rounded-xl shadow-lg overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-105 ${size ? `w-${size}` : 'w-44'} ${className ? className : ''}`} 
+            onMouseEnter={()=> setIsHovered(true)} 
+            onMouseLeave={()=>setIsHovered(false)}
+        >
+            <img 
+                src={`https://image.tmdb.org/t/p/${size ? `w${size}` : 'original'}${movie.poster_path}`}
+                alt={`${movie.title} 영화의 이미지`}
+                className='w-full h-full object-cover'
+            />
+
+            {isHovered && (
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent backdrop-blur-md flex flex-col justify-center items-center text-white p-4">
+                    <h2 className="text-lg font-bold leading-snug">{movie.title}</h2>
+                    <p className="text-sm text-gray-300 leading-relaxed mt-2 line-clamp-5">{movie.overview}</p>
+                </div>
+            )}
+        </div>
+    );
+};

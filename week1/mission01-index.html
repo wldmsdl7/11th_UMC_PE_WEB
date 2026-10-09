@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSS 파일 업로드-->
+    <link rel="stylesheet" href="./mission01-style.css">
+    <!--JS 파일 업로드-->
+   <script type="module" src="./dist/mission01.js" defer></script>
+    <title>UMC TODO</title>
+</head>
+<body>
+    <div class="todo-container">
+        <h1 class="todo-container__header">Todo List</h1>
+        
+        <form id="todo-form">
+            <label for="todo-input" class="sr-only">할 일 입력</label>
+            <input type="text" id="todo-input" class = "todo-container__input" placeholder="할 일을 입력하고 Enter" required>
+        </form>
+
+        <div class="render-container">
+            <div class="render-container__section">
+                <h2 class = "render-container__title">해야 할 일</h2>
+                <ul id="todo-list" class = "render-container__list">
+                    <!-- <li class="render-container__item">
+                        <p class="render-container__item-text">123</p>
+                        <div>
+                            <button class="render-container__item-button complete">완료</button>
+                            <button class="render-container__item-button delete">삭제</button>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+            <div class="render-container__section">
+                <h2 class = "render-container__title">해낸 일</h2>
+                <ul id="done-list" class = "render-container__list">
+                    <!-- <li class="render-container__item">
+                        <p class="render-container__item-text">456</p>
+                        <div>
+                            <button class="render-container__item-button complete">완료</button>
+                            <button class="render-container__item-button delete">삭제</button>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
